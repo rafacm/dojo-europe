@@ -1,6 +1,10 @@
 open ReactSimpleMaps;
 
-let component = ReasonReact.statelessComponent("Main");
+type state = {users: option(array(Fetcher.data))};
+
+type action =
+  | UsersFetched(array(Fetcher.data));
+let component = ReasonReact.reducerComponent("Main");
 
 let myStyle = ReactDOMRe.Style.make(~width="100%", ~height="auto", ());
 let geographyComponentStyle =
@@ -56,23 +60,29 @@ let mapMarkers = markers =>
     <MarkerComponent key=(string_of_int(i)) marker style=markerStyles />
   );
 
-let fetchUsers = () => {
-  Js.log("hello!");
+let fetchUsers = self =>
   Fetcher.fetchGet(
     ~url="https://immense-river-25513.herokuapp.com/locations", ~cb=users =>
-    Js.log2("users", users)
+    self.ReasonReact.send(UsersFetched(users))
+  );
+
+let userToMarker = user => {
+  let (long, lat) = Fetcher.location(user);
+  ReactSimpleMaps.Marker.make(
+    ~markerOffset=-10,
+    ~name=Fetcher.username(user),
+    ~coordinates=[|lat, long|],
   );
 };
 
-let marker =
-  ReactSimpleMaps.Marker.make(
-    ~markerOffset=-10,
-    ~name="Buenos Aires",
-    ~coordinates=[|(-58.3816), (-34.6037)|],
-  );
 let make = _children => {
   ...component,
-  render: _self =>
+  initialState: () => {users: None},
+  reducer: (action, _state) =>
+    switch (action) {
+    | UsersFetched(users) => ReasonReact.Update({users: Some(users)})
+    },
+  render: self =>
     <div>
       <h1> (ReasonReact.string("Dojo Vienna")) </h1>
       <div>
@@ -81,40 +91,49 @@ let make = _children => {
             <Geographies geography="/world-50m.json">
               ...mapGeographies
             </Geographies>
-            <Markers>
-              <MarkerComponent marker style=markerStyles>
-                <circle
-                  cx="0"
-                  cy="0"
-                  r="2"
-                  style=(
-                    ReactDOMRe.Style.make(
-                      ~stroke="#FF5722",
-                      ~strokeWidth="3",
-                      ~opacity="0.9",
-                      (),
+            (
+              switch (self.state.users) {
+              | None => ReasonReact.null
+              | Some(users) =>
+                <Markers>
+                  (
+                    Belt.Array.mapWithIndex(users, (i, user) =>
+                      <MarkerComponent
+                        key=(string_of_int(i))
+                        marker=(userToMarker(user))
+                        style=markerStyles>
+                        <circle
+                          cx="0"
+                          cy="0"
+                          r="2"
+                          style=(
+                            ReactDOMRe.Style.make(
+                              ~stroke="#FF5722",
+                              ~strokeWidth="3",
+                              ~opacity="0.9",
+                              (),
+                            )
+                          )
+                        />
+                        <text
+                          textAnchor="middle"
+                          y="-10"
+                          style=(
+                            ReactDOMRe.Style.make(
+                              ~fontFamily="Roboto, sans-serif",
+                              ~fontSize="11px",
+                              ~fill="607D8B",
+                              (),
+                            )
+                          )>
+                          (ReasonReact.string(Fetcher.username(user)))
+                        </text>
+                      </MarkerComponent>
                     )
                   )
-                />
-                <text
-                  textAnchor="middle"
-                  y=(
-                    string_of_int(
-                      ReactSimpleMaps.Marker.markerOffset(marker),
-                    )
-                  )
-                  style=(
-                    ReactDOMRe.Style.make(
-                      ~fontFamily="Roboto, sans-serif",
-                      ~fontSize="11px",
-                      ~fill="607D8B",
-                      (),
-                    )
-                  )>
-                  (ReasonReact.string(ReactSimpleMaps.Marker.name(marker)))
-                </text>
-              </MarkerComponent>
-            </Markers>
+                </Markers>
+              }
+            )
           </ZoomableGroup>
         </ComposableMap>
       </div>
@@ -124,8 +143,8 @@ let make = _children => {
       ~url="https://immense-river-25513.herokuapp.com/add-location",
       ~body="rafacm",
     );
-    fetchUsers();
-    let intervalId = Js.Global.setInterval(fetchUsers, 30000);
+    fetchUsers(self);
+    let intervalId = Js.Global.setInterval(() => fetchUsers(self), 30000);
     self.onUnmount(() => Js.Global.clearInterval(intervalId));
   },
 };
