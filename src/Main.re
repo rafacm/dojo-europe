@@ -1,5 +1,12 @@
 open ReactSimpleMaps;
 
+type myRecord = {
+  a: int,
+  b: string,
+};
+
+let instance = {a: 2, b: "sdfj"};
+
 type state = {users: option(array(Fetcher.data))};
 
 type action =
@@ -9,6 +16,8 @@ let component = ReasonReact.reducerComponent("Main");
 let myStyle = ReactDOMRe.Style.make(~width="100%", ~height="auto", ());
 let geographyComponentStyle =
   ReactDOMRe.Style.make(~width="100%", ~height="auto", ());
+
+Js.log("sfsdffsdfsd");
 
 let geographyStyles =
   ReactSimpleMaps.Styles.make(
@@ -40,7 +49,7 @@ let geographyStyles =
 let markerStyles =
   ReactSimpleMaps.Styles.make(
     ~default=ReactDOMRe.Style.make(~fill="#FF5722", ()),
-    ~hover=ReactDOMRe.Style.make(~fill="#FF5722", ()),
+    ~hover=ReactDOMRe.Style.make(~fill="#FFFFFF", ()),
     ~pressed=ReactDOMRe.Style.make(~fill="#FF5722", ()),
   );
 let projectionConfig =
@@ -68,11 +77,7 @@ let fetchUsers = self =>
 
 let userToMarker = user => {
   let (long, lat) = Fetcher.location(user);
-  ReactSimpleMaps.Marker.make(
-    ~markerOffset=-10,
-    ~name=Fetcher.username(user),
-    ~coordinates=[|lat, long|],
-  );
+  ReactSimpleMaps.Marker.make(~coordinates=[|lat, long|]);
 };
 
 let make = _children => {

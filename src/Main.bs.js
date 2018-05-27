@@ -21,6 +21,8 @@ var geographyComponentStyle = {
   width: "100%"
 };
 
+console.log("sfsdffsdfsd");
+
 var geographyStyles = ReactSimpleMaps.Styles[/* make */0]({
       outline: "none",
       fill: "#ECEFF1",
@@ -41,7 +43,7 @@ var geographyStyles = ReactSimpleMaps.Styles[/* make */0]({
 var markerStyles = ReactSimpleMaps.Styles[/* make */0]({
       fill: "#FF5722"
     }, {
-      fill: "#FF5722"
+      fill: "#FFFFFF"
     }, {
       fill: "#FF5722"
     });
@@ -72,7 +74,7 @@ function fetchUsers(self) {
 
 function userToMarker(user) {
   var match = user.location;
-  return ReactSimpleMaps.Marker[/* make */0](-10, user.username, /* array */[
+  return ReactSimpleMaps.Marker[/* make */0](/* array */[
               match[1],
               match[0]
             ]);
@@ -143,6 +145,12 @@ function make() {
         ];
 }
 
+var instance = /* record */[
+  /* a */2,
+  /* b */"sdfj"
+];
+
+exports.instance = instance;
 exports.component = component;
 exports.myStyle = myStyle;
 exports.geographyComponentStyle = geographyComponentStyle;

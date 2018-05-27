@@ -64,11 +64,7 @@ module Geography = {
 
 module Marker = {
   [@bs.deriving abstract]
-  type t = {
-    markerOffset: int,
-    name: string,
-    coordinates: array(float),
-  };
+  type t = {coordinates: array(float)};
   let make = t;
 };
 

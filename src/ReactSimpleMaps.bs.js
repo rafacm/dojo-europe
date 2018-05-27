@@ -68,11 +68,9 @@ function make$5(prim) {
 
 var Geography = /* module */[/* make */make$5];
 
-function make$6(prim, prim$1, prim$2) {
+function make$6(prim) {
   return {
-          markerOffset: prim,
-          name: prim$1,
-          coordinates: prim$2
+          coordinates: prim
         };
 }
 
