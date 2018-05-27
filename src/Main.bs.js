@@ -31,7 +31,10 @@ function make() {
           /* willUpdate */component[/* willUpdate */7],
           /* shouldUpdate */component[/* shouldUpdate */8],
           /* render */(function () {
-              return React.createElement("div", undefined, React.createElement("h1", undefined, "hello"), React.createElement("div", undefined, ReasonReact.element(/* None */0, /* None */0, ReactSimpleMaps.ComposableMap[/* make */2](projectionConfig, 980, 551, /* Some */[myStyle], /* array */[ReasonReact.element(/* None */0, /* None */0, ReactSimpleMaps.ZoomableGroup[/* make */0](/* array */[]))]))));
+              return React.createElement("div", undefined, React.createElement("h1", undefined, "Dojo Vienna"), React.createElement("div", undefined, ReasonReact.element(/* None */0, /* None */0, ReactSimpleMaps.ComposableMap[/* make */2](projectionConfig, 980, 551, /* Some */[myStyle], /* array */[ReasonReact.element(/* None */0, /* None */0, ReactSimpleMaps.ZoomableGroup[/* make */1](/* array */[
+                                                0,
+                                                20
+                                              ], true, /* array */[]))]))));
             }),
           /* initialState */component[/* initialState */10],
           /* retainedProps */component[/* retainedProps */11],

@@ -37,11 +37,26 @@ var ComposableMap = /* module */[
   /* make */make$2
 ];
 
-function make$3(children) {
-  return ReasonReact.wrapJsForReason(ReactSimpleMaps.ZoomableGroup, { }, children);
+function make$3(prim, prim$1) {
+  return {
+          center: prim,
+          disablePanning: prim$1
+        };
 }
 
-var ZoomableGroup = /* module */[/* make */make$3];
+var Props$1 = /* module */[/* make */make$3];
+
+function make$4(center, disablePanning, children) {
+  return ReasonReact.wrapJsForReason(ReactSimpleMaps.ZoomableGroup, {
+              center: center,
+              disablePanning: disablePanning
+            }, children);
+}
+
+var ZoomableGroup = /* module */[
+  /* Props */Props$1,
+  /* make */make$4
+];
 
 exports.ComposableMap = ComposableMap;
 exports.ZoomableGroup = ZoomableGroup;

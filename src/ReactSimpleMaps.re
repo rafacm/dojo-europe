@@ -48,10 +48,19 @@ module ZoomableGroup = {
   [@bs.module "react-simple-maps"]
   external myJSReactClass : ReasonReact.reactClass = "ZoomableGroup";
 
-  let make = children =>
+  module Props = {
+    [@bs.deriving abstract]
+    type t = {
+      center: array(int),
+      disablePanning: bool,
+    };
+    let make = t;
+  };
+
+  let make = (~center, ~disablePanning, children) =>
     ReasonReact.wrapJsForReason(
       ~reactClass=myJSReactClass,
-      ~props=Js.Obj.empty(),
+      ~props=Props.make(~center, ~disablePanning),
       children,
     );
 };

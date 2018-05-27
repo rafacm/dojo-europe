@@ -10,10 +10,10 @@ let make = _children => {
   ...component,
   render: _self =>
     <div>
-      <h1> (ReasonReact.string("hello")) </h1>
+      <h1> (ReasonReact.string("Dojo Vienna")) </h1>
       <div>
         <ComposableMap projectionConfig width=980 height=551 style=myStyle>
-          <ZoomableGroup />
+          <ZoomableGroup center=[|0, 20|] disablePanning=true />
         </ComposableMap>
       </div>
     </div>,
