@@ -64,3 +64,66 @@ module ZoomableGroup = {
       children,
     );
 };
+
+module Projection = {
+  type t;
+};
+
+module Geography = {
+  [@bs.deriving abstract]
+  type t = {id: string};
+  let make = t;
+};
+
+module Geographies = {
+  [@bs.module "react-simple-maps"]
+  external myJSReactClass : ReasonReact.reactClass = "Geographies";
+
+  module Props = {
+    [@bs.deriving abstract]
+    type t = {geography: string};
+    let make = t;
+  };
+
+  type childrenType =
+    (array(Geography.t), Projection.t) => array(ReasonReact.reactElement);
+
+  let make = (~geography, children: childrenType) =>
+    ReasonReact.wrapJsForReason(
+      ~reactClass=myJSReactClass,
+      ~props=Props.make(~geography),
+      children,
+    );
+};
+
+module GeographyComponent = {
+  [@bs.module "react-simple-maps"]
+  external myJSReactClass : ReasonReact.reactClass = "Geography";
+
+  module Style = {
+    [@bs.deriving abstract]
+    type t = {
+      default: ReactDOMRe.style,
+      hover: ReactDOMRe.style,
+      pressed: ReactDOMRe.style,
+    };
+    let make = t;
+  };
+
+  module Props = {
+    [@bs.deriving abstract]
+    type t = {
+      geography: Geography.t,
+      projection: Projection.t,
+      style: Style.t,
+    };
+    let make = t;
+  };
+
+  let make = (~geography, ~projection, ~style, children) =>
+    ReasonReact.wrapJsForReason(
+      ~reactClass=myJSReactClass,
+      ~props=Props.make(~geography, ~projection, ~style),
+      children,
+    );
+};

@@ -58,6 +58,73 @@ var ZoomableGroup = /* module */[
   /* make */make$4
 ];
 
+var Projection = /* module */[];
+
+function make$5(prim) {
+  return {
+          id: prim
+        };
+}
+
+var Geography = /* module */[/* make */make$5];
+
+function make$6(prim) {
+  return {
+          geography: prim
+        };
+}
+
+var Props$2 = /* module */[/* make */make$6];
+
+function make$7(geography, children) {
+  return ReasonReact.wrapJsForReason(ReactSimpleMaps.Geographies, {
+              geography: geography
+            }, children);
+}
+
+var Geographies = /* module */[
+  /* Props */Props$2,
+  /* make */make$7
+];
+
+function make$8(prim, prim$1, prim$2) {
+  return {
+          default: prim,
+          hover: prim$1,
+          pressed: prim$2
+        };
+}
+
+var Style = /* module */[/* make */make$8];
+
+function make$9(prim, prim$1, prim$2) {
+  return {
+          geography: prim,
+          projection: prim$1,
+          style: prim$2
+        };
+}
+
+var Props$3 = /* module */[/* make */make$9];
+
+function make$10(geography, projection, style, children) {
+  return ReasonReact.wrapJsForReason(ReactSimpleMaps.Geography, {
+              geography: geography,
+              projection: projection,
+              style: style
+            }, children);
+}
+
+var GeographyComponent = /* module */[
+  /* Style */Style,
+  /* Props */Props$3,
+  /* make */make$10
+];
+
 exports.ComposableMap = ComposableMap;
 exports.ZoomableGroup = ZoomableGroup;
+exports.Projection = Projection;
+exports.Geography = Geography;
+exports.Geographies = Geographies;
+exports.GeographyComponent = GeographyComponent;
 /* ReasonReact Not a pure module */

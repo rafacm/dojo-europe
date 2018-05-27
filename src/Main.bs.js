@@ -3,6 +3,7 @@
 
 var Curry = require("bs-platform/lib/js/curry.js");
 var React = require("react");
+var Belt_Array = require("bs-platform/lib/js/belt_Array.js");
 var ReasonReact = require("reason-react/src/ReasonReact.js");
 var ReactSimpleMaps = require("./ReactSimpleMaps.bs.js");
 
@@ -13,11 +14,39 @@ var myStyle = {
   width: "100%"
 };
 
+var geographyComponentStyle = {
+  height: "auto",
+  width: "100%"
+};
+
+var geographyStyles = Curry._3(ReactSimpleMaps.GeographyComponent[/* Style */0][/* make */0], {
+      outline: "none",
+      fill: "#ECEFF1",
+      stroke: "#607D8B",
+      strokeWidth: "0.75"
+    }, {
+      outline: "none",
+      fill: "#607D8B",
+      stroke: "#607D8B",
+      strokeWidth: "0.75"
+    }, {
+      outline: "none",
+      fill: "#FF5722",
+      stroke: "#607D8B",
+      strokeWidth: "0.75"
+    });
+
 var projectionConfig = Curry._2(ReactSimpleMaps.ComposableMap[/* ProjectionConfig */0][/* make */0], 205, /* array */[
       -11,
       0,
       0
     ]);
+
+function mapGeographies(geographies, projection) {
+  return Belt_Array.mapWithIndex(geographies, (function (i, geography) {
+                return ReasonReact.element(/* Some */[String(i)], /* None */0, ReactSimpleMaps.GeographyComponent[/* make */2](geography, projection, geographyStyles, /* array */[]));
+              }));
+}
 
 function make() {
   return /* record */[
@@ -34,7 +63,7 @@ function make() {
               return React.createElement("div", undefined, React.createElement("h1", undefined, "Dojo Vienna"), React.createElement("div", undefined, ReasonReact.element(/* None */0, /* None */0, ReactSimpleMaps.ComposableMap[/* make */2](projectionConfig, 980, 551, /* Some */[myStyle], /* array */[ReasonReact.element(/* None */0, /* None */0, ReactSimpleMaps.ZoomableGroup[/* make */1](/* array */[
                                                 0,
                                                 20
-                                              ], true, /* array */[]))]))));
+                                              ], true, /* array */[ReasonReact.element(/* None */0, /* None */0, ReactSimpleMaps.Geographies[/* make */1]("/world-50m.json", mapGeographies))]))]))));
             }),
           /* initialState */component[/* initialState */10],
           /* retainedProps */component[/* retainedProps */11],
@@ -46,6 +75,9 @@ function make() {
 
 exports.component = component;
 exports.myStyle = myStyle;
+exports.geographyComponentStyle = geographyComponentStyle;
+exports.geographyStyles = geographyStyles;
 exports.projectionConfig = projectionConfig;
+exports.mapGeographies = mapGeographies;
 exports.make = make;
 /* component Not a pure module */
