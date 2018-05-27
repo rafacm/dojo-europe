@@ -20,7 +20,7 @@ var geographyComponentStyle = {
   width: "100%"
 };
 
-var geographyStyles = Curry._3(ReactSimpleMaps.GeographyComponent[/* Style */0][/* make */0], {
+var geographyStyles = ReactSimpleMaps.Styles[/* make */0]({
       outline: "none",
       fill: "#ECEFF1",
       stroke: "#607D8B",
@@ -37,6 +37,14 @@ var geographyStyles = Curry._3(ReactSimpleMaps.GeographyComponent[/* Style */0][
       strokeWidth: "0.75"
     });
 
+var markerStyles = ReactSimpleMaps.Styles[/* make */0]({
+      fill: "#FF5722"
+    }, {
+      fill: "#FF5722"
+    }, {
+      fill: "#FF5722"
+    });
+
 var projectionConfig = Curry._2(ReactSimpleMaps.ComposableMap[/* ProjectionConfig */0][/* make */0], 205, /* array */[
       -11,
       0,
@@ -45,7 +53,13 @@ var projectionConfig = Curry._2(ReactSimpleMaps.ComposableMap[/* ProjectionConfi
 
 function mapGeographies(geographies, projection) {
   return Belt_Array.mapWithIndex(geographies, (function (i, geography) {
-                return ReasonReact.element(/* Some */[String(i)], /* None */0, ReactSimpleMaps.GeographyComponent[/* make */2](geography, projection, geographyStyles, /* array */[]));
+                return ReasonReact.element(/* Some */[String(i)], /* None */0, ReactSimpleMaps.GeographyComponent[/* make */1](geography, projection, geographyStyles, /* array */[]));
+              }));
+}
+
+function mapMarkers(markers) {
+  return Belt_Array.mapWithIndex(markers, (function (i, marker) {
+                return ReasonReact.element(/* Some */[String(i)], /* None */0, ReactSimpleMaps.MarkerComponent[/* make */1](marker, markerStyles, /* array */[]));
               }));
 }
 
@@ -56,6 +70,11 @@ function fetchUsers() {
                 return /* () */0;
               }));
 }
+
+var marker = ReactSimpleMaps.Marker[/* make */0](-10, "Buenos Aires", /* array */[
+      -58.3816,
+      -34.6037
+    ]);
 
 function make() {
   return /* record */[
@@ -80,7 +99,30 @@ function make() {
               return React.createElement("div", undefined, React.createElement("h1", undefined, "Dojo Vienna"), React.createElement("div", undefined, ReasonReact.element(/* None */0, /* None */0, ReactSimpleMaps.ComposableMap[/* make */2](projectionConfig, 980, 551, /* Some */[myStyle], /* array */[ReasonReact.element(/* None */0, /* None */0, ReactSimpleMaps.ZoomableGroup[/* make */1](/* array */[
                                                 0,
                                                 20
-                                              ], true, /* array */[ReasonReact.element(/* None */0, /* None */0, ReactSimpleMaps.Geographies[/* make */1]("/world-50m.json", mapGeographies))]))]))));
+                                              ], true, /* array */[
+                                                ReasonReact.element(/* None */0, /* None */0, ReactSimpleMaps.Geographies[/* make */1]("/world-50m.json", mapGeographies)),
+                                                ReasonReact.element(/* None */0, /* None */0, ReactSimpleMaps.Markers[/* make */1](/* array */[ReasonReact.element(/* None */0, /* None */0, ReactSimpleMaps.MarkerComponent[/* make */1](marker, markerStyles, /* array */[
+                                                                    React.createElement("circle", {
+                                                                          style: {
+                                                                            opacity: "0.9",
+                                                                            stroke: "#FF5722",
+                                                                            strokeWidth: "3"
+                                                                          },
+                                                                          cx: "0",
+                                                                          cy: "0",
+                                                                          r: "2"
+                                                                        }),
+                                                                    React.createElement("text", {
+                                                                          style: {
+                                                                            fontFamily: "Roboto, sans-serif",
+                                                                            fontSize: "11px",
+                                                                            fill: "607D8B"
+                                                                          },
+                                                                          textAnchor: "middle",
+                                                                          y: String(marker.markerOffset)
+                                                                        }, marker.name)
+                                                                  ]))]))
+                                              ]))]))));
             }),
           /* initialState */component[/* initialState */10],
           /* retainedProps */component[/* retainedProps */11],
@@ -94,8 +136,11 @@ exports.component = component;
 exports.myStyle = myStyle;
 exports.geographyComponentStyle = geographyComponentStyle;
 exports.geographyStyles = geographyStyles;
+exports.markerStyles = markerStyles;
 exports.projectionConfig = projectionConfig;
 exports.mapGeographies = mapGeographies;
+exports.mapMarkers = mapMarkers;
 exports.fetchUsers = fetchUsers;
+exports.marker = marker;
 exports.make = make;
 /* component Not a pure module */

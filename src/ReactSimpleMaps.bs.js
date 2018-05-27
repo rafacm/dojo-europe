@@ -68,15 +68,25 @@ function make$5(prim) {
 
 var Geography = /* module */[/* make */make$5];
 
-function make$6(prim) {
+function make$6(prim, prim$1, prim$2) {
+  return {
+          markerOffset: prim,
+          name: prim$1,
+          coordinates: prim$2
+        };
+}
+
+var Marker = /* module */[/* make */make$6];
+
+function make$7(prim) {
   return {
           geography: prim
         };
 }
 
-var Props$2 = /* module */[/* make */make$6];
+var Props$2 = /* module */[/* make */make$7];
 
-function make$7(geography, children) {
+function make$8(geography, children) {
   return ReasonReact.wrapJsForReason(ReactSimpleMaps.Geographies, {
               geography: geography
             }, children);
@@ -84,10 +94,10 @@ function make$7(geography, children) {
 
 var Geographies = /* module */[
   /* Props */Props$2,
-  /* make */make$7
+  /* make */make$8
 ];
 
-function make$8(prim, prim$1, prim$2) {
+function make$9(prim, prim$1, prim$2) {
   return {
           default: prim,
           hover: prim$1,
@@ -95,9 +105,9 @@ function make$8(prim, prim$1, prim$2) {
         };
 }
 
-var Style = /* module */[/* make */make$8];
+var Styles = /* module */[/* make */make$9];
 
-function make$9(prim, prim$1, prim$2) {
+function make$10(prim, prim$1, prim$2) {
   return {
           geography: prim,
           projection: prim$1,
@@ -105,9 +115,9 @@ function make$9(prim, prim$1, prim$2) {
         };
 }
 
-var Props$3 = /* module */[/* make */make$9];
+var Props$3 = /* module */[/* make */make$10];
 
-function make$10(geography, projection, style, children) {
+function make$11(geography, projection, style, children) {
   return ReasonReact.wrapJsForReason(ReactSimpleMaps.Geography, {
               geography: geography,
               projection: projection,
@@ -116,15 +126,56 @@ function make$10(geography, projection, style, children) {
 }
 
 var GeographyComponent = /* module */[
-  /* Style */Style,
   /* Props */Props$3,
-  /* make */make$10
+  /* make */make$11
+];
+
+function make$12(prim) {
+  return {
+          geography: prim
+        };
+}
+
+var Props$4 = /* module */[/* make */make$12];
+
+function make$13(children) {
+  return ReasonReact.wrapJsForReason(ReactSimpleMaps.Markers, { }, children);
+}
+
+var Markers = /* module */[
+  /* Props */Props$4,
+  /* make */make$13
+];
+
+function make$14(prim, prim$1) {
+  return {
+          marker: prim,
+          style: prim$1
+        };
+}
+
+var Props$5 = /* module */[/* make */make$14];
+
+function make$15(marker, style, children) {
+  return ReasonReact.wrapJsForReason(ReactSimpleMaps.Marker, {
+              marker: marker,
+              style: style
+            }, children);
+}
+
+var MarkerComponent = /* module */[
+  /* Props */Props$5,
+  /* make */make$15
 ];
 
 exports.ComposableMap = ComposableMap;
 exports.ZoomableGroup = ZoomableGroup;
 exports.Projection = Projection;
 exports.Geography = Geography;
+exports.Marker = Marker;
 exports.Geographies = Geographies;
+exports.Styles = Styles;
 exports.GeographyComponent = GeographyComponent;
+exports.Markers = Markers;
+exports.MarkerComponent = MarkerComponent;
 /* ReasonReact Not a pure module */
