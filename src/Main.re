@@ -46,6 +46,14 @@ let mapGeographies = (geographies, projection) =>
     />
   );
 
+let fetchUsers = () => {
+  Js.log("hello!");
+  Fetcher.fetchGet(
+    ~url="https://immense-river-25513.herokuapp.com/locations", ~cb=users =>
+    Js.log2("users", users)
+  );
+};
+
 let make = _children => {
   ...component,
   render: _self =>
@@ -61,4 +69,13 @@ let make = _children => {
         </ComposableMap>
       </div>
     </div>,
+  didMount: self => {
+    Fetcher.fetchPost(
+      ~url="https://immense-river-25513.herokuapp.com/add-location",
+      ~body="rafacm",
+    );
+    fetchUsers();
+    let intervalId = Js.Global.setInterval(fetchUsers, 30000);
+    self.onUnmount(() => Js.Global.clearInterval(intervalId));
+  },
 };

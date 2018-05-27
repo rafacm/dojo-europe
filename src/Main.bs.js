@@ -3,6 +3,7 @@
 
 var Curry = require("bs-platform/lib/js/curry.js");
 var React = require("react");
+var Fetcher = require("./Fetcher.bs.js");
 var Belt_Array = require("bs-platform/lib/js/belt_Array.js");
 var ReasonReact = require("reason-react/src/ReasonReact.js");
 var ReactSimpleMaps = require("./ReactSimpleMaps.bs.js");
@@ -48,13 +49,29 @@ function mapGeographies(geographies, projection) {
               }));
 }
 
+function fetchUsers() {
+  console.log("hello!");
+  return Fetcher.fetchGet("https://immense-river-25513.herokuapp.com/locations", (function (users) {
+                console.log("users", users);
+                return /* () */0;
+              }));
+}
+
 function make() {
   return /* record */[
           /* debugName */component[/* debugName */0],
           /* reactClassInternal */component[/* reactClassInternal */1],
           /* handedOffState */component[/* handedOffState */2],
           /* willReceiveProps */component[/* willReceiveProps */3],
-          /* didMount */component[/* didMount */4],
+          /* didMount */(function (self) {
+              Fetcher.fetchPost("https://immense-river-25513.herokuapp.com/add-location", "rafacm");
+              fetchUsers(/* () */0);
+              var intervalId = setInterval(fetchUsers, 30000);
+              return Curry._1(self[/* onUnmount */4], (function () {
+                            clearInterval(intervalId);
+                            return /* () */0;
+                          }));
+            }),
           /* didUpdate */component[/* didUpdate */5],
           /* willUnmount */component[/* willUnmount */6],
           /* willUpdate */component[/* willUpdate */7],
@@ -79,5 +96,6 @@ exports.geographyComponentStyle = geographyComponentStyle;
 exports.geographyStyles = geographyStyles;
 exports.projectionConfig = projectionConfig;
 exports.mapGeographies = mapGeographies;
+exports.fetchUsers = fetchUsers;
 exports.make = make;
 /* component Not a pure module */
